@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rifa Solidária — Associação de Combate ao Câncer de Marília</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo" onclick="showSection('home')">🎗️ Rifa Solidária</div>
+    <div class="nav-actions">
+      <span id="nav-user-info" class="nav-user hidden"></span>
+      <button id="btn-minha-conta" class="btn-nav hidden" onclick="showSection('conta')">Minha Conta</button>
+      <button id="btn-logout" class="btn-nav btn-outline hidden" onclick="logout()">Sair</button>
+      <button id="btn-login-nav" class="btn-nav" onclick="showSection('login')">Entrar</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="sec-home" class="section active">
+
+  <!-- Banner da causa -->
+  <div class="causa-banner">
+    <div class="causa-inner">
+      <div class="causa-icon">🎗️</div>
+      <div>
+        <div class="causa-titulo">Associação de Combate ao Câncer de Marília</div>
+        <div class="causa-sub">A arrecadação é destinada ao apoio a pacientes e famílias em tratamento oncológico</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">💛 Participe e faça a diferença!</div>
+    <h1 class="hero-title">Concorra a<br /><span class="prize-highlight">R$ 1.500,00</span></h1>
+    <p class="hero-sub">Cada rifa comprada ajuda a Associação de Combate ao Câncer de Marília a continuar seu trabalho de amor e cuidado.</p>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-num" id="stat-vendidas">0</span>
+        <span class="stat-label">Vendidas</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" id="stat-disponiveis">100000</span>
+        <span class="stat-label">Disponíveis</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">R$5</span>
+        <span class="stat-label">Por cota</span>
+      </div>
+    </div>
+    <button class="btn-primary big" onclick="handleComprar()">🎯 Quero Participar!</button>
+    <a class="insta-link" href="https://instagram.com/rodrigopontes1337" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @rodrigopontes1337
+    </a>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">Escolha seu Pacote</h2>
+    <p class="section-sub">Quanto mais cotas, mais chances de ganhar — e mais você ajuda!</p>
+    <div class="pacotes-grid">
+      <div class="pacote-card" data-cotas="1" data-preco="5" onclick="selecionarPacote(this)">
+        <div class="pacote-badge">Solidário</div>
+        <div class="pacote-cotas">1 cota</div>
+        <div class="pacote-preco">R$ 5,00</div>
+        <div class="pacote-desc">1 chance de ganhar</div>
+      </div>
+      <div class="pacote-card destaque" data-cotas="3" data-preco="10" onclick="selecionarPacote(this)">
+        <div class="pacote-badge popular">💛 Popular</div>
+        <div class="pacote-cotas">3 cotas</div>
+        <div class="pacote-preco">R$ 10,00</div>
+        <div class="pacote-desc">Economize R$5!</div>
+      </div>
+      <div class="pacote-card" data-cotas="5" data-preco="20" onclick="selecionarPacote(this)">
+        <div class="pacote-badge">Apoiador</div>
+        <div class="pacote-cotas">5 cotas</div>
+        <div class="pacote-preco">R$ 20,00</div>
+        <div class="pacote-desc">5 chances de ganhar</div>
+      </div>
+      <div class="pacote-card" data-cotas="10" data-preco="25" onclick="selecionarPacote(this)">
+        <div class="pacote-badge gold">👑 Herói</div>
+        <div class="pacote-cotas">10 cotas</div>
+        <div class="pacote-preco">R$ 25,00</div>
+        <div class="pacote-desc">Economize R$25!</div>
+      </div>
+    </div>
+    <div id="pacote-selecionado-info" class="pacote-info-bar hidden">
+      <span id="pacote-info-text">Nenhum pacote selecionado</span>
+      <button class="btn-primary" onclick="irParaEscolha()">Escolher Números →</button>
+    </div>
+  </div>
+
+  <!-- Como funciona -->
+  <div class="container como-funciona">
+    <h2 class="section-title">Como Funciona?</h2>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">01</div><div class="step-text"><strong>Cadastre-se</strong><br/>Crie sua conta grátis</div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-text"><strong>Escolha</strong><br/>Selecione seu pacote e números</div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-text"><strong>Pague</strong><br/>Via Pix ou Cartão Google Play</div></div>
+      <div class="step"><div class="step-num">04</div><div class="step-text"><strong>Ajude e Torça!</strong><br/>Você já fez a diferença!</div></div>
+    </div>
+  </div>
+
+  <!-- Mensagem de impacto -->
+  <div class="impacto-section">
+    <div class="impacto-inner">
+      <div class="impacto-icon">❤️</div>
+      <h3>Sua participação importa</h3>
+      <p>A Associação de Combate ao Câncer de Marília oferece suporte emocional, transporte, medicamentos e acompanhamento a centenas de pacientes. Com a sua ajuda, podemos continuar essa missão.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- CADASTRO -->
+<section id="sec-cadastro" class="section">
+  <div class="auth-card">
+    <div class="auth-logo">🎗️</div>
+    <h2>Criar Conta</h2>
+    <p class="auth-sub">Cadastre-se e ajude a Associação de Combate ao Câncer de Marília!</p>
+    <div class="form-group">
+      <label>Nome Completo</label>
+      <input type="text" id="cad-nome" placeholder="Seu nome completo" />
+    </div>
+    <div class="form-group">
+      <label>E-mail (Gmail obrigatório)</label>
+      <input type="email" id="cad-email" placeholder="seu@gmail.com" />
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="cad-senha" placeholder="Mínimo 6 caracteres" />
+    </div>
+    <div class="form-group">
+      <label>Telefone (WhatsApp)</label>
+      <input type="tel" id="cad-tel" placeholder="(11) 99999-9999" oninput="mascaraTel(this)" />
+    </div>
+    <button class="btn-primary full" onclick="cadastrar()">Criar Conta e Participar</button>
+    <p class="auth-link">Já tem conta? <a onclick="showSection('login')">Entrar</a></p>
+    <div id="msg-cadastro" class="msg hidden"></div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section id="sec-login" class="section">
+  <div class="auth-card">
+    <div class="auth-logo">🎗️</div>
+    <h2>Entrar</h2>
+    <p class="auth-sub">Bem-vindo de volta, apoiador!</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@gmail.com" />
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="login-senha" placeholder="Sua senha" />
+    </div>
+    <button class="btn-primary full" onclick="fazerLogin()">Entrar</button>
+    <p class="auth-link">Não tem conta? <a onclick="showSection('cadastro')">Criar agora</a></p>
+    <div id="msg-login" class="msg hidden"></div>
+  </div>
+</section>
+
+<!-- ESCOLHA DE NÚMEROS -->
+<section id="sec-numeros" class="section">
+  <div class="container">
+    <h2 class="section-title">Escolha seus Números</h2>
+    <p class="section-sub">Números de 0 a 99999 (até 5 dígitos)</p>
+    <div class="numeros-info">
+      <div class="num-info-card">
+        <span>Pacote selecionado:</span>
+        <strong id="num-pacote-label">—</strong>
+      </div>
+      <div class="num-info-card">
+        <span>Ainda faltam:</span>
+        <strong id="num-faltam">0</strong>
+      </div>
+      <div class="num-info-card">
+        <span>Selecionados:</span>
+        <strong id="num-selecionados">0</strong>
+      </div>
+    </div>
+    <div class="numero-input-area">
+      <input type="text" id="input-numero" placeholder="Digite um número (ex: 03829)" maxlength="5" oninput="this.value=this.value.replace(/\D/g,'')" />
+      <button class="btn-primary" onclick="adicionarNumero()">Adicionar</button>
+      <button class="btn-outline" onclick="numeroAleatorio()">🎲 Aleatório</button>
+    </div>
+    <div id="numeros-escolhidos" class="numeros-chips"></div>
+    <div id="msg-numeros" class="msg hidden"></div>
+    <button id="btn-ir-pagamento" class="btn-primary big full hidden" onclick="showSection('pagamento')">
+      Ir para Pagamento →
+    </button>
+  </div>
+</section>
+
+<!-- PAGAMENTO -->
+<section id="sec-pagamento" class="section">
+  <div class="container">
+    <h2 class="section-title">Pagamento</h2>
+    <div class="resumo-compra">
+      <h3>Resumo da Compra</h3>
+      <div class="resumo-row"><span>Pacote</span><strong id="pag-pacote">—</strong></div>
+      <div class="resumo-row"><span>Números</span><strong id="pag-numeros">—</strong></div>
+      <div class="resumo-row total"><span>Total</span><strong id="pag-total">—</strong></div>
+    </div>
+    <div class="metodos-pagamento">
+      <div class="metodo-card" id="metodo-pix" onclick="selecionarMetodo('pix')">
+        <div class="metodo-icon">💚</div>
+        <div class="metodo-nome">Pix</div>
+        <div class="metodo-desc">Pagamento instantâneo</div>
+      </div>
+      <div class="metodo-card" id="metodo-google" onclick="selecionarMetodo('google')">
+        <div class="metodo-icon">🎮</div>
+        <div class="metodo-nome">Google Play</div>
+        <div class="metodo-desc">Cartão presente</div>
+      </div>
+    </div>
+    <div id="pag-pix" class="pag-detalhes hidden">
+      <div class="pix-box">
+        <div class="pix-titulo">Chave Pix</div>
+        <div class="pix-chave" onclick="copiarPix()">rodrigopontes1337@gmail.com</div>
+        <button class="btn-outline" onclick="copiarPix()">📋 Copiar Chave</button>
+        <p class="pix-instrucao">Após realizar o pagamento, clique em "Confirmar Pagamento"</p>
+      </div>
+      <button class="btn-primary full" onclick="confirmarPagamento()">✅ Confirmei o Pagamento</button>
+    </div>
+    <div id="pag-google" class="pag-detalhes hidden">
+      <div class="form-group">
+        <label>Código do Cartão Google Play</label>
+        <input type="text" id="google-code" placeholder="XXXX-XXXX-XXXX" oninput="mascaraGoogle(this)" />
+      </div>
+      <p class="pix-instrucao">Insira o código do cartão presente e clique em confirmar</p>
+      <button class="btn-primary full" onclick="confirmarPagamento()">✅ Confirmar Pagamento</button>
+    </div>
+    <div id="msg-pagamento" class="msg hidden"></div>
+  </div>
+</section>
+
+<!-- MINHA CONTA -->
+<section id="sec-conta" class="section">
+  <div class="container">
+    <h2 class="section-title">Minha Conta</h2>
+    <div id="conta-info" class="conta-profile"></div>
+    <h3 class="sub-title">Minhas Rifas</h3>
+    <div id="conta-rifas" class="rifas-lista"></div>
+    <h3 class="sub-title">Histórico de Transações</h3>
+    <div id="conta-historico" class="historico-lista"></div>
+  </div>
+</section>
+
+<!-- PAINEL ADMIN -->
+<section id="sec-admin" class="section">
+  <div class="container">
+    <div class="admin-header">
+      <h2 class="section-title">🔐 Painel Administrativo</h2>
+      <p class="section-sub">Associação de Combate ao Câncer de Marília</p>
+    </div>
+
+    <!-- Resumo geral -->
+    <div class="admin-stats-grid">
+      <div class="admin-stat-card">
+        <div class="admin-stat-icon">🎟️</div>
+        <div class="admin-stat-num" id="adm-total-cotas">0</div>
+        <div class="admin-stat-label">Cotas Vendidas</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-icon">👥</div>
+        <div class="admin-stat-num" id="adm-total-compradores">0</div>
+        <div class="admin-stat-label">Compradores</div>
+      </div>
+      <div class="admin-stat-card destaque">
+        <div class="admin-stat-icon">💰</div>
+        <div class="admin-stat-num" id="adm-total-arrecadado">R$ 0</div>
+        <div class="admin-stat-label">Total Arrecadado</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-icon">📋</div>
+        <div class="admin-stat-num" id="adm-total-transacoes">0</div>
+        <div class="admin-stat-label">Transações</div>
+      </div>
+    </div>
+
+    <!-- Ações admin -->
+    <div class="admin-acoes">
+      <button class="btn-admin" onclick="exportarCSV()">📥 Exportar CSV</button>
+      <button class="btn-admin btn-danger" onclick="confirmarLimpar()">🗑️ Limpar Todos os Dados</button>
+    </div>
+
+    <!-- Busca -->
+    <div class="admin-busca">
+      <input type="text" id="admin-search" placeholder="🔍 Buscar por nome, e-mail ou número..." oninput="filtrarTabela()" />
+    </div>
+
+    <!-- Tabela de compradores -->
+    <h3 class="sub-title">Todos os Compradores</h3>
+    <div class="admin-table-wrap">
+      <table class="admin-table" id="admin-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Números</th>
+            <th>Cotas</th>
+            <th>Valor</th>
+            <th>Método</th>
+            <th>Data</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
+      <div id="admin-vazio" class="empty-state hidden"><div>📋</div>Nenhuma compra registrada ainda.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL SUCESSO -->
+<div id="modal-sucesso" class="modal hidden">
+  <div class="modal-icon">🎉</div>
+  <h2>Compra Confirmada!</h2>
+  <p id="modal-text">Seus números foram registrados com sucesso!</p>
+  <p class="modal-causa">Obrigado por apoiar a Associação de Combate ao Câncer de Marília! 🎗️</p>
+  <button class="btn-primary full" onclick="fecharModal()">Ver Minha Conta</button>
+</div>
+<div id="modal-overlay" class="modal-overlay hidden" onclick="fecharModal()"></div>
+
+<!-- MODAL CONFIRMAÇÃO LIMPAR -->
+<div id="modal-limpar" class="modal hidden">
+  <div class="modal-icon">⚠️</div>
+  <h2>Atenção!</h2>
+  <p>Tem certeza que deseja apagar TODOS os dados? Esta ação não pode ser desfeita.</p>
+  <button class="btn-primary full btn-danger-modal" onclick="limparTodosDados()">Sim, apagar tudo</button>
+  <button class="btn-outline full" style="margin-top:0.5rem" onclick="fecharModalLimpar()">Cancelar</button>
+</div>
+<div id="modal-limpar-overlay" class="modal-overlay hidden" onclick="fecharModalLimpar()"></div>
+
+<footer class="footer">
+  <div class="footer-causa">🎗️ Rifa Solidária em apoio à Associação de Combate ao Câncer de Marília</div>
+  <p>100% da arrecadação revertida para pacientes em tratamento oncológico</p>
+  <a href="https://instagram.com/rodrigopontes1337" target="_blank">📸 @rodrigopontes1337</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
