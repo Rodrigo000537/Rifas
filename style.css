@@ -479,3 +479,95 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   .form-row { grid-template-columns: 1fr; }
   .sorteio-inner { flex-direction: column; }
 }
+
+/* ===== MOBILE ENHANCED ===== */
+@media (max-width: 480px) {
+  /* Navbar compacta */
+  .nav-inner { height: auto; padding: 0.6rem 0; flex-wrap: wrap; gap: 0.4rem; }
+  .logo { font-size: 1.1rem; }
+  .btn-nav { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+  .aviso-terceiros { font-size: 0.65rem; width: 100%; text-align: center; }
+
+  /* Hero mais compacto */
+  .hero { padding: 2.8rem 1rem 2.5rem; }
+  .hero-title { font-size: clamp(2rem, 9vw, 3rem); }
+  .hero-sub { font-size: 0.9rem; margin-bottom: 1.8rem; }
+  .hero-badge { font-size: 0.75rem; }
+  .btn-primary.big { padding: 0.9rem 1.8rem; font-size: 1rem; width: 100%; }
+
+  /* Pacotes em coluna única para telas muito pequenas */
+  .pacotes-grid { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .pacote-card { padding: 1.1rem 0.7rem; }
+  .pacote-cotas { font-size: 1.3rem; }
+  .pacote-preco { font-size: 1rem; }
+
+  /* Steps em coluna única */
+  .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .step { padding: 0.8rem; background: var(--bg2); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+  /* QR Code centralizado e grande no mobile */
+  .qrcode-wrap { display: flex; flex-direction: column; align-items: center; }
+  .qrcode-img { width: min(260px, 85vw) !important; height: auto !important; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+
+  /* Pix box mais espaçado */
+  .pix-box { padding: 1.5rem 1rem; }
+  .pix-chave { font-size: 0.75rem; word-break: break-all; padding: 0.8rem; }
+
+  /* Impacto section */
+  .impacto-texto { padding: 1.5rem 1rem; }
+  .impacto-texto h3 { font-size: 1.3rem; }
+  .impacto-sorteio-box { padding: 1rem; }
+  .impacto-sorteio-data { font-size: 1.1rem; }
+
+  /* Auth card */
+  .auth-card { margin: 1rem 0.5rem; padding: 1.5rem 1rem; }
+  .auth-card h2 { font-size: 1.4rem; }
+
+  /* Form inputs maiores para toque */
+  input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+    font-size: 16px !important; /* evita zoom no iOS */
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+  }
+  .btn-primary, .btn-outline { min-height: 48px; font-size: 0.95rem; }
+
+  /* Números chips */
+  .numeros-chips { gap: 0.4rem; }
+  .numero-chip { font-size: 0.85rem; padding: 0.35rem 0.7rem; }
+
+  /* Admin table scroll */
+  .admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Modal */
+  .modal { padding: 2rem 1.2rem; width: 94%; }
+  .modal h2 { font-size: 1.3rem; }
+  .modal-icon { font-size: 2.8rem; }
+
+  /* Footer */
+  .footer { padding: 1.5rem 1rem; font-size: 0.8rem; }
+
+  /* Conta section */
+  .conta-profile { padding: 1rem; }
+  .conta-sorteio-aviso { padding: 1rem; flex-direction: column; text-align: center; }
+  .conta-numeros-destaque { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+  /* Metodos pagamento */
+  .metodo-card { padding: 1.2rem 0.8rem; }
+  .metodo-icon { font-size: 1.8rem; }
+
+  /* Resumo compra */
+  .resumo-compra { padding: 1rem; }
+  .resumo-row { font-size: 0.9rem; }
+
+  /* Pendente card admin */
+  .pendente-card { padding: 1rem; }
+  .pendente-acoes { width: 100%; justify-content: flex-end; }
+}
+
+/* Touch friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+  .pacote-card, .metodo-card { cursor: default; }
+  .pacote-card:active { transform: scale(0.98); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-outline:active { transform: scale(0.97); }
+}
