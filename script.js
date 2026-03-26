@@ -326,35 +326,6 @@ function getUsuarioLogado() {
 }
 
 // ============================================================
-// MENSAGEM NA TELA DO ADMIN
-// ============================================================
-import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-messaging.js";
-
-const messaging = getMessaging(app);
-
-// 🔔 pedir permissão e gerar token
-async function ativarNotificacao() {
-  const permission = await Notification.requestPermission();
-
-  if (permission === "granted") {
-    const token = await getToken(messaging, {
-      vapidKey: "BMASVr5IqzgiUXi4AinSGjnTU6pmJj_cDimodqBeDgRAWGLI4kChXTfQwPRAefzn8InZVqR_W7LNllyXQxIGJww"
-    });
-
-    console.log("🔥 TOKEN DO CELULAR:", token);
-  } else {
-    alert("Você precisa permitir notificações");
-  }
-}
-onMessage(messaging, (payload) => {
-  console.log("Mensagem recebida:", payload);
-
-  new Notification(payload.notification.title, {
-    body: payload.notification.body
-  });
-});
-
-// ============================================================
 // CADASTRO DE NOVO USUÁRIO
 // ============================================================
 async function cadastrar() {
