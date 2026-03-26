@@ -463,6 +463,37 @@
   <a href="https://instagram.com/rifass_10" target="_blank">📸 @rifass_10</a>
 </footer>
 
+<!--
+  ================================================================
+  INICIALIZAÇÃO DO FIREBASE (módulo ES)
+  Este bloco DEVE vir antes do script.js.
+  Ele injeta window.db e window.dbRef para uso global.
+  ================================================================
+-->
+<script type="module">
+  import { initializeApp }  from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getFirestore, doc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey           : "AIzaSyDHeBEyvJBv3C9WqvDV_9bTotvS6rGI1CM",
+    authDomain       : "rifas-e4d89.firebaseapp.com",
+    projectId        : "rifas-e4d89",
+    storageBucket    : "rifas-e4d89.firebasestorage.app",
+    messagingSenderId: "619504019052",
+    appId            : "1:619504019052:web:1b846e22a4a3600b12da49"
+  };
+
+  // Inicializa o app Firebase e expõe globalmente
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  window.db    = db;
+  window.dbRef = doc(db, "rifa", "dados"); // Documento único que armazena todos os dados
+
+  console.log("🔥 Firebase Firestore conectado com sucesso.");
+</script>
+
+<!-- Script principal da aplicação (não-módulo para acesso global) -->
 <script src="script.js"></script>
 </body>
 </html>
