@@ -16,6 +16,73 @@
  */
 
 // ============================================================
+// TERMOS DE USO — Modal de aceitação obrigatória
+// ============================================================
+
+(function initTermos() {
+  // Se já aceitou nesta sessão, não exibe novamente
+  if (sessionStorage.getItem('termosAceitos') === 'true') return;
+
+  // Aguarda o DOM estar pronto
+  document.addEventListener('DOMContentLoaded', function () {
+    const overlay   = document.getElementById('modal-termos-overlay');
+    const corpo     = document.getElementById('termos-corpo');
+    const btnAceitar = document.getElementById('btn-aceitar');
+    const avisoScroll = document.getElementById('termos-aviso-scroll');
+
+    if (!overlay || !corpo) return;
+
+    // Bloqueia scroll do body enquanto modal aberto
+    document.body.style.overflow = 'hidden';
+
+    // Detecta quando o usuário chegou ao final do conteúdo
+    corpo.addEventListener('scroll', function () {
+      const chegouAoFinal = corpo.scrollTop + corpo.clientHeight >= corpo.scrollHeight - 30;
+      if (chegouAoFinal) {
+        btnAceitar.disabled = false;
+        avisoScroll.classList.add('oculto');
+      }
+    });
+  });
+})();
+
+/** Chamada quando o usuário clica em "Aceitar" */
+function aceitarTermos() {
+  sessionStorage.setItem('termosAceitos', 'true');
+  const overlay = document.getElementById('modal-termos-overlay');
+  if (overlay) {
+    overlay.style.animation = 'none';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.35s';
+    setTimeout(() => overlay.remove(), 380);
+  }
+  document.body.style.overflow = '';
+}
+
+/** Chamada quando o usuário clica em "Recusar" */
+function recusarTermos() {
+  // Oculta modal
+  const overlay = document.getElementById('modal-termos-overlay');
+  if (overlay) overlay.style.display = 'none';
+
+  // Exibe tela de expulsão
+  const telaSaida = document.getElementById('tela-saida');
+  if (telaSaida) telaSaida.classList.remove('hidden');
+
+  // Bloqueia toda interação da página
+  document.body.style.overflow = 'hidden';
+  document.body.style.pointerEvents = 'none';
+  if (telaSaida) telaSaida.style.pointerEvents = 'all';
+
+  // Tenta fechar/redirecionar a aba após 2,5 segundos
+  setTimeout(() => {
+    try { window.close(); } catch (e) { /* silencioso */ }
+    // Fallback: redireciona para página em branco
+    window.location.replace('about:blank');
+  }, 2500);
+}
+
+// ============================================================
 // CONSTANTES GLOBAIS
 // ============================================================
 const ADMIN_EMAIL   = 'admin';
@@ -534,7 +601,7 @@ async function adicionarNumero() {
     return;
   }
   if (val.length > 5) {
-    showMsg(msgEl, 'error', 'Máximo 5 dígitos (00000 a 09047).');
+    showMsg(msgEl, 'error', 'Máximo 5 dígitos (00000 a 99999).');
     input.value = '';
     return;
   }
